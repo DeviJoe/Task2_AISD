@@ -162,11 +162,15 @@ public class LinkList<T> {
     public Object get(int index) {
         int counter = 0;
         LinkedNode<T> t = first;
-        while (counter!=index) {
-            t = t.getNext();
-            counter++;
+        try {
+            while (counter!=index) {
+                t = t.getNext();
+                counter++;
+            }
+        } catch (IndexOutOfBoundsException e) {
+            e.printStackTrace();
         }
-        return t;
+        return t.getValue();
     }
 
     /**
@@ -174,7 +178,10 @@ public class LinkList<T> {
      * @param index
      * @param
      */
-    public void add(int index, T element) {
+    public void add(int index, T element) throws Exception {
+        if (index > size && index < 0) {
+            throw new IndexOutOfBoundsException();
+        }
         int counter = 0;
         LinkedNode<T> t = first;
          do {
@@ -189,6 +196,9 @@ public class LinkList<T> {
      * @param index
      */
     public void remove(int index) {
+        if (index > size && index < 0) {
+            throw new IndexOutOfBoundsException();
+        }
         int counter = 0;
         LinkedNode<T> t = first;
         while (counter!=index) {
@@ -220,7 +230,7 @@ public class LinkList<T> {
                 }
             }
         }
-        return 0;
+        return -1;
     }
 
     /**
